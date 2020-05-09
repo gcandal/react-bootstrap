@@ -1,8 +1,13 @@
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 module.exports = {
     entry: "./index.js",
     target: "web",
+    output: {
+        library: "ReactBootstrap"
+    },
     plugins: [
         new HtmlWebpackPlugin({
             title: "React Bootstrap",
@@ -15,6 +20,12 @@ module.exports = {
                 conservativeCollapse: false,
                 preserveLineBreaks: false
             }
+        }),
+        new ScriptExtHtmlWebpackPlugin({
+            module: "*.js"
+        }),
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": process.env.NODE_ENV
         })
     ],
     devServer: {
@@ -53,14 +64,7 @@ module.exports = {
                         loader: "babel-loader",
                         query: {
                             presets: [
-                                [
-                                    "@babel/preset-env",
-                                    {
-                                        targets: {
-                                            browsers: ["last 2 years"]
-                                        }
-                                    }
-                                ],
+                                "@babel/preset-env",
                                 "@babel/preset-react"
                             ],
                             plugins: [
@@ -113,5 +117,9 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    devtool:
+        process.env.NODE_ENV === "production"
+            ? "source-map"
+            : "inline-source-map"
 };
