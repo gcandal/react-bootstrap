@@ -4,5 +4,3 @@ import { Hello } from "./components";
 import "./app.css";
 
 export const App = () => <Hello />;
-
-export default App;

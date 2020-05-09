@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
@@ -6,7 +7,8 @@ module.exports = {
     entry: "./index.js",
     target: "web",
     output: {
-        library: "ReactBootstrap"
+        path: path.resolve(__dirname, "./dist"),
+        filename: "bundle.js"
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -22,7 +24,7 @@ module.exports = {
             }
         }),
         new ScriptExtHtmlWebpackPlugin({
-            module: "*.js"
+            module: /.js$/
         }),
         new webpack.DefinePlugin({
             "process.env.NODE_ENV": process.env.NODE_ENV
@@ -64,18 +66,19 @@ module.exports = {
                         loader: "babel-loader",
                         query: {
                             presets: [
-                                "@babel/preset-env",
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        useBuiltIns: "usage",
+                                        corejs: 3,
+                                        targets: {
+                                            esmodules: true
+                                        }
+                                    }
+                                ],
                                 "@babel/preset-react"
                             ],
-                            plugins: [
-                                "@babel/plugin-proposal-class-properties",
-                                [
-                                    "@babel/plugin-transform-runtime",
-                                    {
-                                        regenerator: true
-                                    }
-                                ]
-                            ]
+                            plugins: ["@babel/plugin-proposal-class-properties"]
                         }
                     },
                     {
