@@ -1,5 +1,10 @@
 module.exports = {
-    extends: ["standard", "plugin:prettier/recommended", "eslint:recommended", "plugin:react/recommended"],
+    extends: [
+        "standard",
+        "plugin:prettier/recommended",
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     parser: "babel-eslint",
     settings: {
         react: {
