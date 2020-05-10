@@ -4,8 +4,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 module.exports = {
-    entry: "./index.js",
+    entry: "./index.tsx",
     target: "web",
+    resolve: {
+        extensions: [".wasm", ".ts", ".tsx", ".mjs", ".cjs", ".js", ".json"]
+    },
     output: {
         path: path.resolve(__dirname, "./dist"),
         filename: "bundle.js"
@@ -40,6 +43,20 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "ts-loader"
+                    }
+                ]
+            },
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            },
             {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"]

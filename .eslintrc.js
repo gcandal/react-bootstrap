@@ -1,11 +1,19 @@
 module.exports = {
     extends: [
         "standard",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
         "plugin:prettier/recommended",
-        "eslint:recommended",
         "plugin:react/recommended"
     ],
-    parser: "babel-eslint",
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: "module",
+        ecmaFeatures: {
+            jsx: true
+        }
+    },
     settings: {
         react: {
             createClass: "createReactClass",

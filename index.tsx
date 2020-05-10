@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 import { App } from "./src/app";
 
-const init = function () {
+const init = (): void => {
     ReactDOM.render(<App />, document.getElementById("root"));
 };
 
